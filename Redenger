@@ -1,0 +1,20 @@
+function render(s, profile, perf) {
+  document.getElementById("result").innerHTML = `
+    <h2>🔥 GOD LEVEL AI SENSI</h2>
+
+    <p><b>Brand:</b> ${profile.brand}</p>
+    <p><b>Profile:</b> ${profile.tier}</p>
+
+    <p><b>Performance Score:</b> ${perf.score}</p>
+    <p><b>Device Tier:</b> ${perf.tier}</p>
+
+    <hr>
+
+    <p>General: ${s[0]}</p>
+    <p>Red Dot: ${s[1]}</p>
+    <p>2X Scope: ${s[2]}</p>
+    <p>4X Scope: ${s[3]}</p>
+    <p>Sniper: ${s[4]}</p>
+    <p>Free Look: ${s[5]}</p>
+  `;
+}
