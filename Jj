@@ -1,0 +1,29 @@
+let DB = null;
+
+// -----------------------------
+// CLOUD DATABASE LOADER
+// -----------------------------
+async function loadDatabase() {
+  if (!DB) {
+    DB = await (await fetch("api/devices.json")).json();
+  }
+}
+
+// -----------------------------
+// MAIN ENGINE
+// -----------------------------
+async function generateSensi() {
+  await loadDatabase();
+
+  const deviceInput = (document.getElementById("device").value || "").toLowerCase();
+  const ram = Number(document.getElementById("ram").value) || 4;
+  const fps = Number(document.getElementById("fps").value) || 60;
+
+  const profile = detectDeviceProfile(deviceInput);
+  const performance = computePerformance(ram, fps);
+
+  const base = getBaseSensitivity(profile);
+  const final = applyAIAdjustments(base, performance, profile);
+
+  render(final, profile, performance);
+}
