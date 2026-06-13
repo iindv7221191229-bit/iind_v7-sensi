@@ -1,0 +1,26 @@
+{
+  "samsung": {
+    "models": ["s24 ultra","s23 ultra","a55","m14","a15","a34","s22","s21"],
+    "sensi": [92,88,84,74,50,75]
+  },
+  "apple": {
+    "models": ["iphone 15","iphone 14","iphone 13","iphone 12","iphone 11"],
+    "sensi": [82,78,74,64,40,70]
+  },
+  "xiaomi": {
+    "models": ["redmi note 13","note 12","poco x6","poco m6","mi 11"],
+    "sensi": [94,90,86,76,52,75]
+  },
+  "vivo": {
+    "models": ["v29","y100","y21","v27","v25"],
+    "sensi": [95,91,87,77,55,75]
+  },
+  "oppo": {
+    "models": ["reno 10","a78","a57","find x","a77"],
+    "sensi": [94,90,86,76,54,75]
+  },
+  "realme": {
+    "models": ["narzo 60","c55","11 pro","gt neo","9 pro"],
+    "sensi": [92,88,84,74,50,75]
+  }
+}
