@@ -1,0 +1,36 @@
+function applyAIAdjustments(base, perf, profile) {
+  let s = [...base];
+
+  // ---------------- FPS ADJUSTMENT ----------------
+  if (perf.fps <= 30) {
+    s = s.map(v => v + 6);
+  } else if (perf.fps >= 90) {
+    s = s.map(v => v - 6);
+  }
+
+  // ---------------- RAM ADJUSTMENT ----------------
+  if (perf.ram <= 3) {
+    s = s.map(v => v + 5);
+  } else if (perf.ram >= 8) {
+    s = s.map(v => v - 4);
+  }
+
+  // ---------------- DEVICE TIER BOOST ----------------
+  if (profile.tier === "model-match") {
+    s = s.map(v => v - 2); // more precise tuning
+  }
+
+  if (profile.tier === "ai-fallback") {
+    s = s.map(v => v + 2); // safer sensitivity
+  }
+
+  // ---------------- PERFORMANCE NORMALIZATION ----------------
+  if (perf.tier === "low") {
+    s = s.map(v => v + 3);
+  } else if (perf.tier === "high") {
+    s = s.map(v => v - 3);
+  }
+
+  // clamp 0–100
+  return s.map(v => Math.max(0, Math.min(100, Math.round(v))));
+}
