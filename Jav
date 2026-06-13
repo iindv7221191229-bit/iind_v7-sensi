@@ -1,0 +1,30 @@
+function aiEngine(device, ram, fps) {
+
+  // base universal sensitivity
+  let s = [95, 90, 85, 75, 50, 75];
+
+  // ---------------- FPS LOGIC ----------------
+  if (fps <= 30) {
+    s = s.map(v => v + 6);
+  } else if (fps >= 90) {
+    s = s.map(v => v - 6);
+  }
+
+  // ---------------- RAM LOGIC ----------------
+  if (ram <= 3) {
+    s = s.map(v => v + 5);
+  } else if (ram >= 8) {
+    s = s.map(v => v - 4);
+  }
+
+  // ---------------- DEVICE INTELLIGENCE ----------------
+  if (device.includes("iphone")) s = [82,78,74,64,40,70];
+  else if (device.includes("samsung")) s = [92,88,84,74,50,75];
+  else if (device.includes("redmi") || device.includes("xiaomi") || device.includes("poco")) s = [94,90,86,76,52,75];
+  else if (device.includes("vivo") || device.includes("oppo") || device.includes("realme")) s = [95,91,87,77,55,75];
+  else if (device.includes("oneplus")) s = [88,84,80,70,45,75];
+  else if (device.includes("tecno") || device.includes("lava")) s = [100,96,92,85,60,80];
+
+  // clamp
+  return s.map(v => Math.max(0, Math.min(100, Math.round(v))));
+}
