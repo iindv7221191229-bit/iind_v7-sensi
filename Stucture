@@ -1,0 +1,6 @@
+ai-sensi-backend/
+│
+├── server.js
+├── aiEngine.js
+├── devices.json
+├── package.json
