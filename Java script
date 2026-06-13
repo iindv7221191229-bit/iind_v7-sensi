@@ -1,0 +1,54 @@
+let DB = null;
+
+const API_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/api/devices.json";
+
+async function loadDB() {
+  if (!DB) {
+    const res = await fetch(API_URL);
+    DB = await res.json();
+  }
+}
+
+async function generateSensi() {
+  await loadDB();
+
+  const input = document.getElementById("device").value.toLowerCase();
+  const r = document.getElementById("result");
+
+  let result = null;
+  let matched = "Unknown";
+
+  for (let brand in DB) {
+    const data = DB[brand];
+
+    // exact model match
+    if (data.models.some(m => input.includes(m))) {
+      result = data.sensi;
+      matched = brand + " model match";
+      break;
+    }
+
+    // brand match
+    if (input.includes(brand)) {
+      result = data.sensi;
+      matched = brand + " brand match";
+      break;
+    }
+  }
+
+  if (!result) {
+    result = [95,90,85,75,50,75];
+    matched = "AI fallback";
+  }
+
+  r.innerHTML = `
+    <h2>☁️ CLOUD AI SENSI</h2>
+    <p><b>Match:</b> ${matched}</p>
+    <p>General: ${result[0]}</p>
+    <p>Red Dot: ${result[1]}</p>
+    <p>2X Scope: ${result[2]}</p>
+    <p>4X Scope: ${result[3]}</p>
+    <p>Sniper: ${result[4]}</p>
+    <p>Free Look: ${result[5]}</p>
+  `;
+}
