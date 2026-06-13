@@ -1,0 +1,17 @@
+function detectDeviceProfile(input) {
+  if (!DB) return { brand: "unknown", tier: "auto" };
+
+  for (const brand in DB) {
+    const data = DB[brand];
+
+    if (data.models?.some(m => input.includes(m))) {
+      return { brand, tier: "model-match" };
+    }
+
+    if (input.includes(brand)) {
+      return { brand, tier: "brand-match" };
+    }
+  }
+
+  return { brand: "unknown", tier: "ai-fallback" };
+}
