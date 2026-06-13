@@ -1,0 +1,5 @@
+window.onload = function () {
+  setTimeout(() => {
+    alert("🔥 Follow @iind_v7 on Instagram for more updates!");
+  }, 3000);
+};
