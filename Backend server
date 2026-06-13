@@ -1,0 +1,27 @@
+const express = require("express");
+const cors = require("cors");
+const { generateSensitivity } = require("./aiEngine");
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// -----------------------------
+// MAIN API ENDPOINT
+// -----------------------------
+app.post("/sensi", (req, res) => {
+  const { device, ram, fps } = req.body;
+
+  const result = generateSensitivity({
+    device: (device || "").toLowerCase(),
+    ram: Number(ram) || 4,
+    fps: Number(fps) || 60
+  });
+
+  res.json(result);
+});
+
+// -----------------------------
+app.listen(3000, () => {
+  console.log("🔥 AI Sensi Server running on port 3000");
+});
