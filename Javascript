@@ -1,0 +1,55 @@
+let DB = null;
+
+async function loadDB() {
+  if (!DB) {
+    DB = await (await fetch("api/devices.json")).json();
+  }
+}
+
+async function generateSensi() {
+  await loadDB();
+
+  const input = document.getElementById("device").value.toLowerCase();
+  const ram = parseFloat(document.getElementById("ram").value) || 4;
+  const fps = parseInt(document.getElementById("fps").value) || 60;
+
+  let result = null;
+  let matched = "AI UNKNOWN DEVICE";
+
+  // -----------------------------
+  // 1. EXACT MATCH FROM DATABASE
+  // -----------------------------
+  for (let brand in DB) {
+    let data = DB[brand];
+
+    if (data.models?.some(m => input.includes(m))) {
+      result = data.sensi;
+      matched = brand + " exact model";
+      break;
+    }
+
+    if (input.includes(brand)) {
+      result = data.sensi;
+      matched = brand + " brand";
+      break;
+    }
+  }
+
+  // -----------------------------
+  // 2. PERFORMANCE AI ENGINE
+  // -----------------------------
+  if (!result) {
+    result = aiEngine(input, ram, fps);
+  }
+
+  document.getElementById("result").innerHTML = `
+    <h2>🔥 UNIVERSAL AI SENSI</h2>
+    <p><b>Match:</b> ${matched}</p>
+    <p>General: ${result[0]}</p>
+    <p>Red Dot: ${result[1]}</p>
+    <p>2X Scope: ${result[2]}</p>
+    <p>4X Scope: ${result[3]}</p>
+    <p>Sniper: ${result[4]}</p>
+    <p>Free Look: ${result[5]}</p>
+  `;
+}
