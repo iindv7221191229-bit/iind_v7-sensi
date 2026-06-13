@@ -1,0 +1,14 @@
+function getBaseSensitivity(profile) {
+  const map = {
+    samsung: [92,88,84,74,50,75],
+    apple: [82,78,74,64,40,70],
+    xiaomi: [94,90,86,76,52,75],
+    vivo: [95,91,87,77,55,75],
+    oppo: [94,90,86,76,54,75],
+    realme: [92,88,84,74,50,75],
+    oneplus: [88,84,80,70,45,75],
+    unknown: [95,90,85,75,50,75]
+  };
+
+  return map[profile.brand] || map.unknown;
+}
