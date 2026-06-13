@@ -1,0 +1,17 @@
+function computePerformance(ram, fps) {
+  let score = 0;
+
+  // RAM contribution
+  score += ram * 10;
+
+  // FPS contribution
+  score += fps * 1.5;
+
+  // classification
+  let tier = "mid";
+
+  if (score < 40) tier = "low";
+  else if (score > 90) tier = "high";
+
+  return { score, tier, ram, fps };
+}
